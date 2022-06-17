@@ -107,12 +107,12 @@ pub fn git_credentials_callback(
 ) -> Result<git2::Cred, git2::Error> {
     
 
-    if user_from_url.is_some() && cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
-        let user = user_from_url.unwrap();
-       return Cred::ssh_key(user, Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
+    if cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
+        // let user = user_from_url.unwrap();
+       return Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
     }
 
-    return Err(git2::Error::from_str("no credential option available"));
+    return Err(git2::Error::from_str(format!("no credential option available for {:#?}", user_from_url).as_str()));
     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
 //    Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
 }
