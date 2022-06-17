@@ -2,5 +2,5 @@
 - [x] repo
 - [x] add all
 - [x] commit
-- [ ] pull
+- [x] pull
 - [ ] push
