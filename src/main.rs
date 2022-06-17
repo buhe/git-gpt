@@ -123,5 +123,5 @@ pub fn git_credentials_callback(
 	// Ok(credentials)
     let p = env!("KEY");
     println!("pass is '{}'", p);
-    Cred::userpass_plaintext("buhe", p)
+    Cred::userpass_plaintext("bugu1986", p)
 }
