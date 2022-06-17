@@ -1,0 +1,2 @@
+local:
+	cargo install --path .

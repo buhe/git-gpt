@@ -1,5 +1,3 @@
-use std::{path::Path};
-
 use git2::{Repository, Index, ObjectType, Signature, Error, Direction};
 
 fn main() {
@@ -27,7 +25,7 @@ fn run() -> Result<(), git2::Error> {
 }
 
 fn open() -> Result<Repository, git2::Error>{
-    let repo = Repository::open(&Path::new("."))?;
+    let repo = Repository::open_from_env().unwrap();
     // let mut index = repo.index()?;
     // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"));
