@@ -1,6 +1,6 @@
 ## git-u
 - [x] repo
-- [ ] add all
-- [ ] commit
+- [x] add all
+- [x] commit
 - [ ] pull
 - [ ] push
