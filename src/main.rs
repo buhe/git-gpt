@@ -114,5 +114,5 @@ pub fn git_credentials_callback(
 
     // return Err(git2::Error::from_str(format!("no credential option available for {:#?} {:#?}", user_from_url, cred_types_allowed).as_str()));
     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
-   Cred::userpass_plaintext("buhe", env!("KEY"))
+   Cred::ssh_key_from_agent("buhe")
 }
