@@ -1,6 +1,6 @@
 use std::{path::Path};
 
-use git2::{Repository, Index, ObjectType, Signature, Error};
+use git2::{Repository, Index, ObjectType, Signature, Error, Direction};
 
 fn main() {
     println!("Hello, git!");
@@ -16,6 +16,7 @@ fn run() -> Result<(), git2::Error> {
     let mut index = add_all(&repo)?;
     commit(&repo, &mut index)?;
     pull(&repo)?;
+    push(&repo)?;
     // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
     // println!("commit {}\nAuthor: {}\n    {}",
@@ -78,6 +79,12 @@ fn pull(repo: &Repository) -> Result<(), git2::Error> {
     }
 }
 
-fn push() {
 
+fn push(repo: &Repository) -> Result<(), git2::Error> {
+    let mut remote = match repo.find_remote("origin") {
+        Ok(r) => r,
+        Err(_) => repo.remote("origin", "unknow")?,
+    };
+    remote.connect(Direction::Push)?;
+    remote.push(&["refs/heads/master:refs/heads/master"], None)
 }
