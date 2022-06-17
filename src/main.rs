@@ -102,8 +102,8 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
 
 pub fn git_credentials_callback(
     _url: &str,
-    user_from_url: Option<&str>,
-    cred_types_allowed: git2::CredentialType,
+    _user_from_url: Option<&str>,
+    _cred_types_allowed: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
     
 
@@ -114,5 +114,15 @@ pub fn git_credentials_callback(
 
     // return Err(git2::Error::from_str(format!("no credential option available for {:#?} {:#?}", user_from_url, cred_types_allowed).as_str()));
     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
-   Cred::ssh_key_from_agent("buhe")
+//    Cred::ssh_key_from_agent("buhe")
+        let credentials = 
+		Cred::ssh_key(
+			"git", 
+			Some(Path::new("/Users/buhe/.ssh/github.pub")), 
+			Path::new("/Users/buhe/.ssh/github"), 
+			None
+		).expect("Could not create credentials object");
+
+
+	Ok(credentials)
 }
