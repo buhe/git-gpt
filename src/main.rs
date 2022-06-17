@@ -88,14 +88,14 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
     callbacks.credentials(git_credentials_callback);
     remote.connect_auth(Direction::Push, Some(callbacks), None)?;
     
-    // repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
+    repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
     
-    // let mut push_options = PushOptions::default();
-    // let mut callbacks2 = git2::RemoteCallbacks::new();
-    // callbacks2.credentials(git_credentials_callback);
-    // push_options.remote_callbacks(callbacks2);
-    remote.push(&["refs/heads/master:refs/heads/master"], None)
-    // remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
+    let mut push_options = PushOptions::default();
+    let mut callbacks2 = git2::RemoteCallbacks::new();
+    callbacks2.credentials(git_credentials_callback);
+    push_options.remote_callbacks(callbacks2);
+    // remote.push(&["refs/heads/master:refs/heads/master"], None)
+    remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
 }
 
 pub fn git_credentials_callback(
@@ -104,5 +104,5 @@ pub fn git_credentials_callback(
     _cred: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
     println!("auth {}", _user);
-   Ok(Cred::ssh_key_from_agent("buhe").expect("Could not get ssh key from ssh agent"))
+   Cred::userpass_plaintext("buhe",env!("PASS")) 
 }
