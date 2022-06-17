@@ -115,10 +115,13 @@ pub fn git_credentials_callback(
     // return Err(git2::Error::from_str(format!("no credential option available for {:#?} {:#?}", user_from_url, cred_types_allowed).as_str()));
     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
 //    Cred::ssh_key_from_agent("buhe")
-        let credentials = 
-		Cred::ssh_key_from_agent(
-			"github").expect("Could not create credentials object");
+    //     let credentials = 
+	// 	Cred::ssh_key_from_agent(
+	// 		"github").expect("Could not create credentials object");
 
 
-	Ok(credentials)
+	// Ok(credentials)
+    let p = env!("KEY");
+    println!("pass is '{}'", p);
+    Cred::userpass_plaintext("buhe", p)
 }
