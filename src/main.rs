@@ -86,9 +86,9 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
         Err(_) => repo.remote("origin", "unknow")?,
     };
     // remote.connect(Direction::Push)?;
-    let mut callbacks = git2::RemoteCallbacks::new();
-    callbacks.credentials(git_credentials_callback);
-    remote.connect_auth(Direction::Push, Some(callbacks), None)?;
+    // let mut callbacks = git2::RemoteCallbacks::new();
+    // callbacks.credentials(git_credentials_callback);
+    remote.connect(Direction::Push)?;
     println!("connected.");  
     repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
 
