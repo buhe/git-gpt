@@ -116,12 +116,8 @@ pub fn git_credentials_callback(
     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
 //    Cred::ssh_key_from_agent("buhe")
         let credentials = 
-		Cred::ssh_key(
-			"git", 
-			Some(Path::new("/Users/buhe/.ssh/github.pub")), 
-			Path::new("/Users/buhe/.ssh/github"), 
-			None
-		).expect("Could not create credentials object");
+		Cred::ssh_key_from_agent(
+			"github").expect("Could not create credentials object");
 
 
 	Ok(credentials)
