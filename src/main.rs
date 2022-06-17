@@ -1,6 +1,4 @@
-use std::env;
-
-use git2::{Repository, Index, ObjectType, Signature, Error, Direction};
+use git2::{Repository, Index, ObjectType, Signature, Error, Direction, Cred, PushOptions};
 
 fn main() {
     println!("Hello, git!");
@@ -89,7 +87,14 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
     let mut callbacks = git2::RemoteCallbacks::new();
     callbacks.credentials(git_credentials_callback);
     remote.connect_auth(Direction::Push, Some(callbacks), None)?;
-    remote.push(&["refs/heads/master:refs/heads/master"], None)
+    
+    repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
+    
+    let mut push_options = PushOptions::default();
+    let mut callbacks = git2::RemoteCallbacks::new();
+    callbacks.credentials(git_credentials_callback);
+    push_options.remote_callbacks(callbacks);
+    remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
 }
 
 pub fn git_credentials_callback(
@@ -97,18 +102,5 @@ pub fn git_credentials_callback(
     _user_from_url: Option<&str>,
     _cred: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
-    let user = _user_from_url.unwrap_or("git");
-
-    if _cred.contains(git2::CredentialType::USERNAME) {
-        return git2::Cred::username(user);
-    }
-
-    match env::var("GPM_SSH_KEY") {
-        Ok(k) => {
-
-            println!("authenticate with user {} and private key located in {}", user, k);
-            git2::Cred::ssh_key(user, None, std::path::Path::new(&k), None)
-        },
-        _ => Err(git2::Error::from_str("unable to get private key from GPM_SSH_KEY")),
-    }
+   Ok(Cred::ssh_key_from_agent(_user).expect("Could not get ssh key from ssh agent"))
 }
