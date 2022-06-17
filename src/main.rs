@@ -64,8 +64,10 @@ fn pull(repo: &Repository) -> Result<(), git2::Error> {
     let fetch_commit = repo.reference_to_annotated_commit(&fetch_head)?;
     let analysis = repo.merge_analysis(&[&fetch_commit])?;
     if analysis.0.is_up_to_date() {
+        println!("pull up to date");
         Ok(())
     } else if analysis.0.is_fast_forward() {
+        println!("pull fast forward");
         let refname = format!("refs/heads/{}", "master");
         let mut reference = repo.find_reference(&refname)?;
         reference.set_target(fetch_commit.id(), "Fast-Forward")?;
