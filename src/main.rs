@@ -101,10 +101,17 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
 }
 
 pub fn git_credentials_callback(
-    _user: &str,
-    _user_from_url: Option<&str>,
-    _cred: git2::CredentialType,
+    _url: &str,
+    user_from_url: Option<&str>,
+    cred_types_allowed: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
-    println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
-   Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
+    let user = user_from_url.unwrap();
+
+    if cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
+       return Cred::ssh_key(user, Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
+    }
+
+    return Err(git2::Error::from_str("no credential option available"));
+    // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
+//    Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
 }
