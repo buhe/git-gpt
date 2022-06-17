@@ -104,5 +104,5 @@ pub fn git_credentials_callback(
     _cred: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
     println!("auth {}", _user);
-   Ok(Cred::ssh_key_from_agent(_user).expect("Could not get ssh key from ssh agent"))
+   Ok(Cred::ssh_key_from_agent("buhe").expect("Could not get ssh key from ssh agent"))
 }
