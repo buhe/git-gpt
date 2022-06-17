@@ -105,9 +105,10 @@ pub fn git_credentials_callback(
     user_from_url: Option<&str>,
     cred_types_allowed: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
-    let user = user_from_url.unwrap();
+    
 
-    if cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
+    if user_from_url.is_some() && cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
+        let user = user_from_url.unwrap();
        return Cred::ssh_key(user, Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
     }
 
