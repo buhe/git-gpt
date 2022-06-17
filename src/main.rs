@@ -105,6 +105,6 @@ pub fn git_credentials_callback(
     _user_from_url: Option<&str>,
     _cred: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
-    println!("auth {}", _user);
-   Cred::ssh_key("buhe123", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
+    println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
+   Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
 }
