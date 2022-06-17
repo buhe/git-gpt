@@ -43,7 +43,7 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
 
 fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
      let oid = index.write_tree()?;
-    let signature = Signature::now("buhe", "bugu1986@gmail.com")?;
+    let signature = Signature::now("buhe", "bugu1986@126.com")?;
     let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     let parent_commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
     let tree = repo.find_tree(oid)?;
@@ -112,7 +112,7 @@ pub fn git_credentials_callback(
        return Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
     }
 
-    return Err(git2::Error::from_str(format!("no credential option available for {:#?}", user_from_url).as_str()));
+    return Err(git2::Error::from_str(format!("no credential option available for {:#?} {:#?}", user_from_url, cred_types_allowed).as_str()));
     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
 //    Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
 }
