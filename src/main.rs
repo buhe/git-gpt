@@ -90,14 +90,15 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
     // callbacks.credentials(git_credentials_callback);
     remote.connect(Direction::Push)?;
     println!("connected.");  
-    repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
+    // repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
 
-    let mut push_options = PushOptions::default();
-    let mut callbacks2 = git2::RemoteCallbacks::new();
-    callbacks2.credentials(git_credentials_callback);
-    push_options.remote_callbacks(callbacks2);
-    // remote.push(&["refs/heads/master:refs/heads/master"], None)
-    remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
+    // let mut push_options = PushOptions::default();
+    // let mut callbacks2 = git2::RemoteCallbacks::new();
+    // callbacks2.credentials(git_credentials_callback);
+    // push_options.remote_callbacks(callbacks2);
+    // // remote.push(&["refs/heads/master:refs/heads/master"], None)
+    // remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
+    Ok(())
 }
 
 pub fn git_credentials_callback(
