@@ -1,3 +1,5 @@
+use std::path::Path;
+
 use git2::{Repository, Index, ObjectType, Signature, Error, Direction, Cred, PushOptions};
 
 fn main() {
@@ -104,5 +106,5 @@ pub fn git_credentials_callback(
     _cred: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
     println!("auth {}", _user);
-   Cred::userpass_plaintext("buhe",env!("PASS")) 
+   Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None)
 }
