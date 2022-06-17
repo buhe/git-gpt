@@ -1,9 +1,9 @@
-use std::{path::Path, time};
+use std::{path::Path};
 
 use git2::{Repository, Index, ObjectType, Signature};
 
 fn main() {
-    println!("Hello, world!");
+    println!("Hello, git!");
     match run() {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
@@ -13,7 +13,7 @@ fn main() {
 
 fn run() -> Result<(), git2::Error> {
     let repo = open()?;
-    let mut index = addAll(&repo)?;
+    let mut index = add_all(&repo)?;
     commit(&repo, &mut index)?;
     // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
@@ -32,7 +32,7 @@ fn open() -> Result<Repository, git2::Error>{
     Ok(repo)
 }
 
-fn addAll(repo: &Repository) -> Result<Index, git2::Error> {
+fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
     let mut index = repo.index()?;
     index.add_all(["*"].iter(), git2::IndexAddOption::DEFAULT, None)?;
     index.write()?;
