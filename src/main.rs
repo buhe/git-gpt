@@ -83,10 +83,10 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
         Ok(r) => r,
         Err(_) => repo.remote("origin", "unknow")?,
     };
-    remote.connect(Direction::Push)?;
-    // let mut callbacks = git2::RemoteCallbacks::new();
-    // callbacks.credentials(git_credentials_callback);
-    // remote.connect_auth(Direction::Push, Some(callbacks), None)?;
+    // remote.connect(Direction::Push)?;
+    let mut callbacks = git2::RemoteCallbacks::new();
+    callbacks.credentials(git_credentials_callback);
+    remote.connect_auth(Direction::Push, Some(callbacks), None)?;
     
     // repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
     
@@ -103,5 +103,6 @@ pub fn git_credentials_callback(
     _user_from_url: Option<&str>,
     _cred: git2::CredentialType,
 ) -> Result<git2::Cred, git2::Error> {
+    println!("auth");
    Ok(Cred::ssh_key_from_agent(_user).expect("Could not get ssh key from ssh agent"))
 }
