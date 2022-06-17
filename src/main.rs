@@ -89,7 +89,7 @@ fn push(repo: &Repository) -> Result<(), git2::Error> {
     // let mut callbacks = git2::RemoteCallbacks::new();
     // callbacks.credentials(git_credentials_callback);
     // remote.connect_auth(Direction::Push, Some(callbacks), None)?;
-    // println!("connected.");  
+    println!("connected.");  
     // repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
 
     let mut push_options = PushOptions::default();
