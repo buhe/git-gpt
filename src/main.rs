@@ -117,7 +117,7 @@ pub fn git_credentials_callback(
 //    Cred::ssh_key_from_agent("buhe")
         let credentials = 
 		Cred::ssh_key(
-			"bugu1986@126.com", 
+			"git", 
 			Some(Path::new("/Users/buhe/.ssh/github.pub")), 
 			Path::new("/Users/buhe/.ssh/github"), 
 			None
