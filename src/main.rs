@@ -16,7 +16,7 @@ fn run() -> Result<(), git2::Error> {
     let mut index = add_all(&repo)?;
     commit(&repo, &mut index)?;
     pull(&repo)?;
-    push(&repo)?;
+    // push(&repo)?;
     // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
     // println!("commit {}\nAuthor: {}\n    {}",
