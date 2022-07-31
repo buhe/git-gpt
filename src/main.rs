@@ -1,6 +1,4 @@
-use std::path::Path;
-
-use git2::{Repository, Index, ObjectType, Signature, Error, Direction, Cred, PushOptions};
+use git2::{Repository, Index, ObjectType, Signature, Error};
 
 fn main() {
     println!("Hello, git!");
@@ -80,48 +78,48 @@ fn pull(repo: &Repository) -> Result<(), git2::Error> {
 }
 
 
-fn push(repo: &Repository) -> Result<(), git2::Error> {
-    let mut remote = match repo.find_remote("origin") {
-        Ok(r) => r,
-        Err(_) => repo.remote("origin", "unknow")?,
-    };
-    // remote.connect(Direction::Push)?;
-    // let mut callbacks = git2::RemoteCallbacks::new();
-    // callbacks.credentials(git_credentials_callback);
-    // remote.connect_auth(Direction::Push, Some(callbacks), None)?;
-    println!("connected.");  
-    // repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
+// fn push(repo: &Repository) -> Result<(), git2::Error> {
+//     let mut remote = match repo.find_remote("origin") {
+//         Ok(r) => r,
+//         Err(_) => repo.remote("origin", "unknow")?,
+//     };
+//     // remote.connect(Direction::Push)?;
+//     // let mut callbacks = git2::RemoteCallbacks::new();
+//     // callbacks.credentials(git_credentials_callback);
+//     // remote.connect_auth(Direction::Push, Some(callbacks), None)?;
+//     println!("connected.");  
+//     // repo.remote_add_push("origin", "refs/heads/master:refs/heads/master").unwrap();
 
-    let mut push_options = PushOptions::default();
-    let mut callbacks2 = git2::RemoteCallbacks::new();
-    callbacks2.credentials(git_credentials_callback);
-    push_options.remote_callbacks(callbacks2);
-    // remote.push(&["refs/heads/master:refs/heads/master"], None)
-    remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
-}
+//     let mut push_options = PushOptions::default();
+//     let mut callbacks2 = git2::RemoteCallbacks::new();
+//     callbacks2.credentials(git_credentials_callback);
+//     push_options.remote_callbacks(callbacks2);
+//     // remote.push(&["refs/heads/master:refs/heads/master"], None)
+//     remote.push(&["refs/heads/master:refs/heads/master"], Some(&mut push_options))
+// }
 
-pub fn git_credentials_callback(
-    _url: &str,
-    _user_from_url: Option<&str>,
-    _cred_types_allowed: git2::CredentialType,
-) -> Result<git2::Cred, git2::Error> {
+// pub fn git_credentials_callback(
+//     _url: &str,
+//     _user_from_url: Option<&str>,
+//     _cred_types_allowed: git2::CredentialType,
+// ) -> Result<git2::Cred, git2::Error> {
     
 
-    // if cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
-    //     // let user = user_from_url.unwrap();
-    //    return Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
-    // }
+//     // if cred_types_allowed.contains(git2::CredentialType::SSH_KEY) {
+//     //     // let user = user_from_url.unwrap();
+//     //    return Cred::ssh_key("buhe", Some(Path::new("~/.ssh/github.pub")), Path::new("~/.ssh/github"), None);
+//     // }
 
-    // return Err(git2::Error::from_str(format!("no credential option available for {:#?} {:#?}", user_from_url, cred_types_allowed).as_str()));
-    // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
-//    Cred::ssh_key_from_agent("buhe")
-    //     let credentials = 
-	// 	Cred::ssh_key_from_agent(
-	// 		"github").expect("Could not create credentials object");
+//     // return Err(git2::Error::from_str(format!("no credential option available for {:#?} {:#?}", user_from_url, cred_types_allowed).as_str()));
+//     // println!("auth {} {:#?} {:#?}", _user, _user_from_url, _cred);
+// //    Cred::ssh_key_from_agent("buhe")
+//     //     let credentials = 
+// 	// 	Cred::ssh_key_from_agent(
+// 	// 		"github").expect("Could not create credentials object");
 
 
-	// Ok(credentials)
-    let p = env!("KEY");
-    println!("pass is '{}'", p);
-    Cred::userpass_plaintext("buhe", p)
-}
+// 	// Ok(credentials)
+//     // let p = env!("KEY");
+//     // println!("pass is '{}'", p);
+//     Cred::userpass_plaintext("buhe", "")
+// }
