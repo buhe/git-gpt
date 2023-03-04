@@ -14,6 +14,9 @@ export OPEAN_AI=YOUR_TOKEN
 git gpt
 git push
 ```
+
+### Tasks
+
 - [x] repo
 - [x] add all
 - [x] commit
@@ -22,4 +25,4 @@ git push
 - [x] generate git commit log
 - [x] gpt log
 - [x] use git cong instead of hard code
-- [ ] update document
+- [x] update document
