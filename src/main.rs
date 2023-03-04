@@ -6,16 +6,18 @@ use sdk::GPT;
 #[tokio::main]
 async fn main() {
     println!("Hello, git!");
-    match run() {
+    match run().await {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
     }
     
 }
 
-fn run() -> Result<(), git2::Error> {
+async fn run() -> Result<(), git2::Error> {
     let mut gpt = GPT::new();
     gpt.setup();
+    let reps = gpt.request().await.unwrap();
+    println!("reps:{}", reps);
     let repo = open()?;
     let mut index = add_all(&repo)?;
     commit(&repo, &mut index)?;
