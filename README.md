@@ -2,6 +2,21 @@
 
 Use GPT 3.5 API generate git commit log.
 
+### Install
+```bash
+cargo install git-gpt
+```
+
+### Usage
+```bash
+export OPEAN_AI=YOUR_TOKEN
+# Token is here https://platform.openai.com/account/api-keys
+git gpt
+git push
+```
+
+### Tasks
+
 - [x] repo
 - [x] add all
 - [x] commit
@@ -10,4 +25,4 @@ Use GPT 3.5 API generate git commit log.
 - [x] generate git commit log
 - [x] gpt log
 - [x] use git cong instead of hard code
-- [ ] update document
+- [x] update document
