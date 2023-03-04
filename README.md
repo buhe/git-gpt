@@ -2,6 +2,5 @@
 - [x] repo
 - [x] add all
 - [x] commit
-- [x] pull
-- [ ] push
+- [x] request gpt
 - [ ] gpt log
