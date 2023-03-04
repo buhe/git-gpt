@@ -58,6 +58,6 @@ pub async fn request_to_gpt(api_key: String) -> Result<String, Box<dyn std::erro
         .await?
         .json()
         .await?;
-
+    println!("raw:{}", resp);
     Ok(resp["choices"][0]["message"]["content"].to_string())
 }
