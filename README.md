@@ -7,6 +7,12 @@ Use GPT 3.5 API generate git commit log.
 cargo install git-gpt
 ```
 
+### Usage
+```bash
+export OPEAN_AI=YOUR_TOKEN
+git gpt
+git push
+```
 - [x] repo
 - [x] add all
 - [x] commit
