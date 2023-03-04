@@ -18,7 +18,7 @@ impl GPT {
     pub fn setup(&mut self){
          match env::var("OPEN_AI") {
             Ok(val) => {
-                println!("OPEN_AI is {}", val);
+                // println!("OPEN_AI is {}", val);
                 self.api_key = val;
             },
             Err(e) => println!("couldn't read OPEN_AI: {}", e),
@@ -91,7 +91,7 @@ impl GPT {
         .await?
         .json()
         .await?;
-    println!("raw:{}", resp);
+    // println!("raw:{}", resp);
     Ok(resp["choices"][0]["message"]["content"].to_string())
 }
 }
