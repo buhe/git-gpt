@@ -2,6 +2,11 @@
 
 Use GPT 3.5 API generate git commit log.
 
+### Install
+```bash
+cargo install git-gpt
+```
+
 - [x] repo
 - [x] add all
 - [x] commit
