@@ -182,7 +182,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "git-u"
+name = "git-gpt"
 version = "0.1.0"
 dependencies = [
  "git2",
