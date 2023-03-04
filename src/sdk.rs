@@ -31,37 +31,7 @@ impl GPT {
     }
 
     pub async fn request_to_gpt(&self, api_key: String, msg: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
-    // const prompt = `${promptTemplate}\n${diff}`;
-
-//     const excludeFromDiff = [
-// 	'package-lock.json',
-// 	'pnpm-lock.yaml',
-
-// 	// yarn.lock, Cargo.lock, Gemfile.lock, Pipfile.lock, etc.
-// 	'*.lock',
-// ].map(file => `:(exclude)${file}`);
-
-// export const getStagedDiff = async () => {
-// 	const diffCached = ['diff', '--cached'];
-// 	const { stdout: files } = await execa(
-// 		'git',
-// 		[...diffCached, '--name-only', ...excludeFromDiff],
-// 	);
-
-// 	if (!files) {
-// 		return;
-// 	}
-
-// 	const { stdout: diff } = await execa(
-// 		'git',
-// 		[...diffCached, ...excludeFromDiff],
-// 	);
-
-// 	return {
-// 		files: files.split('\n'),
-// 		diff,
-// 	};
-// };
+        
     let msgs = VecDeque::from(vec![
                     Msg {
                         role: "system".to_string(),
@@ -79,8 +49,6 @@ impl GPT {
         max_tokens: Some(2048),
     };
 
-    // println!("body:--------------");
-    // println!("{}", serde_json::to_string(&gpt_body).unwrap());
 
     let resp: serde_json::Value = reqwest::Client::new()
         .post(URL)

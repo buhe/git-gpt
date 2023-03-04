@@ -1,12 +1,12 @@
 mod sdk;
 
-use git2::{Repository, Index, ObjectType, Signature};
+use git2::{Repository, Index, ObjectType};
 use sdk::GPT;
 use std::process::Command;
 
 #[tokio::main]
 async fn main() {
-    // println!("Hello, git gpt!");
+    println!("Hello, git gpt!");
     match run().await {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
@@ -31,9 +31,6 @@ async fn run() -> Result<(), git2::Error> {
 
 fn open() -> Result<Repository, git2::Error>{
     let repo = Repository::open_from_env().unwrap();
-    // let mut index = repo.index()?;
-    // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
-    // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"));
     Ok(repo)
 }
 
@@ -46,7 +43,7 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
 
 async fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
      let oid = index.write_tree()?;
-    let signature = Signature::now("buhe", "bugu1986@126.com")?;
+    let signature = repo.signature()?;
     let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     let parent_commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
     // let head = repo.find_tree(parent_commit.id())?;
