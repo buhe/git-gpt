@@ -10,6 +10,7 @@ cargo install git-gpt
 ### Usage
 ```bash
 export OPEAN_AI=YOUR_TOKEN
+# Token is here https://platform.openai.com/account/api-keys
 git gpt
 git push
 ```
