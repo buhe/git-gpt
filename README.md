@@ -6,6 +6,8 @@ Use GPT 3.5 API generate git commit log.
 - [x] add all
 - [x] commit
 - [x] request gpt
-- [ ] diff
-- [ ] generate git commit log
-- [ ] gpt log
+- [x] diff
+- [x] generate git commit log
+- [x] gpt log
+- [ ] use git cong instead of hard code
+- [ ] update document
