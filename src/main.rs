@@ -2,7 +2,9 @@ mod sdk;
 
 use git2::{Repository, Index, ObjectType, Signature};
 use sdk::GPT;
-fn main() {
+
+#[tokio::main]
+async fn main() {
     println!("Hello, git!");
     match run() {
         Ok(()) => {}
@@ -12,7 +14,7 @@ fn main() {
 }
 
 fn run() -> Result<(), git2::Error> {
-    let gpt = GPT{};
+    let mut gpt = GPT::new();
     gpt.setup();
     let repo = open()?;
     let mut index = add_all(&repo)?;
