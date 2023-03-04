@@ -9,5 +9,5 @@ Use GPT 3.5 API generate git commit log.
 - [x] diff
 - [x] generate git commit log
 - [x] gpt log
-- [ ] use git cong instead of hard code
+- [x] use git cong instead of hard code
 - [ ] update document
