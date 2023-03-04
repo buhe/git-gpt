@@ -1,4 +1,4 @@
-use std::env;
+use std::{env, collections::VecDeque};
 use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.openai.com/v1/chat/completions";
@@ -31,7 +31,7 @@ impl GPT {
 #[derive(Serialize, Deserialize, Debug)]
 struct GptBody {
     model: String,
-    messages: String,
+    messages: VecDeque<Msg>,
     #[serde(skip_serializing_if = "Option::is_none")]
     temperature: Option<f32>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -39,9 +39,19 @@ struct GptBody {
 }
 
 pub async fn request_to_gpt(api_key: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    let msgs = VecDeque::from(vec![
+                    Msg {
+                        role: "system".to_string(),
+                        content: "You are a helpful assistant.".to_string(),
+                    },
+                    Msg {
+                        role: "user".to_string(),
+                        content: "hey".to_string(),
+                    },
+                ]);
     let gpt_body = GptBody {
         model: "gpt-3.5-turbo".to_string(),
-        messages: "hey".to_string(), // todo log,
+        messages: msgs, // todo log,
         temperature: Some(0.8),
         max_tokens: Some(2048),
     };
@@ -60,4 +70,10 @@ pub async fn request_to_gpt(api_key: String) -> Result<String, Box<dyn std::erro
         .await?;
     println!("raw:{}", resp);
     Ok(resp["choices"][0]["message"]["content"].to_string())
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Msg {
+    role: String,
+    content: String,
 }
