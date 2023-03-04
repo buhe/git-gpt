@@ -1,4 +1,4 @@
-use git2::{Repository, Index, ObjectType, Signature, Error};
+use git2::{Repository, Index, ObjectType, Signature};
 
 fn main() {
     println!("Hello, git!");
@@ -13,7 +13,7 @@ fn run() -> Result<(), git2::Error> {
     let repo = open()?;
     let mut index = add_all(&repo)?;
     commit(&repo, &mut index)?;
-    pull(&repo)?;
+    // pull(&repo)?;
     // push(&repo)?;
     // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
@@ -55,27 +55,27 @@ fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
     Ok(())
 }
 
-fn pull(repo: &Repository) -> Result<(), git2::Error> {
-    repo.find_remote("origin")?
-        .fetch(&["master"], None, None)?;
+// fn pull(repo: &Repository) -> Result<(), git2::Error> {
+//     repo.find_remote("origin")?
+//         .fetch(&["master"], None, None)?;
 
-    let fetch_head = repo.find_reference("FETCH_HEAD")?;
-    let fetch_commit = repo.reference_to_annotated_commit(&fetch_head)?;
-    let analysis = repo.merge_analysis(&[&fetch_commit])?;
-    if analysis.0.is_up_to_date() {
-        println!("pull up to date");
-        Ok(())
-    } else if analysis.0.is_fast_forward() {
-        println!("pull fast forward");
-        let refname = format!("refs/heads/{}", "master");
-        let mut reference = repo.find_reference(&refname)?;
-        reference.set_target(fetch_commit.id(), "Fast-Forward")?;
-        repo.set_head(&refname)?;
-        repo.checkout_head(Some(git2::build::CheckoutBuilder::default().force()))
-    } else {
-        Err(Error::from_str("Fast-forward only!"))
-    }
-}
+//     let fetch_head = repo.find_reference("FETCH_HEAD")?;
+//     let fetch_commit = repo.reference_to_annotated_commit(&fetch_head)?;
+//     let analysis = repo.merge_analysis(&[&fetch_commit])?;
+//     if analysis.0.is_up_to_date() {
+//         println!("pull up to date");
+//         Ok(())
+//     } else if analysis.0.is_fast_forward() {
+//         println!("pull fast forward");
+//         let refname = format!("refs/heads/{}", "master");
+//         let mut reference = repo.find_reference(&refname)?;
+//         reference.set_target(fetch_commit.id(), "Fast-Forward")?;
+//         repo.set_head(&refname)?;
+//         repo.checkout_head(Some(git2::build::CheckoutBuilder::default().force()))
+//     } else {
+//         Err(Error::from_str("Fast-forward only!"))
+//     }
+// }
 
 
 // fn push(repo: &Repository) -> Result<(), git2::Error> {
