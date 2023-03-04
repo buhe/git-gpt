@@ -15,13 +15,9 @@ async fn main() {
 }
 
 async fn run() -> Result<(), git2::Error> {
-    let mut gpt = GPT::new();
-    gpt.setup();
-    let reps = gpt.request().await.unwrap();
-    println!("reps:{}", reps);
     let repo = open()?;
     let mut index = add_all(&repo)?;
-    commit(&repo, &mut index)?;
+    commit(&repo, &mut index).await?;
     // pull(&repo)?;
     // push(&repo)?;
     // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
@@ -48,7 +44,7 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
     Ok(index)
 }
 
-fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
+async fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
      let oid = index.write_tree()?;
     let signature = Signature::now("buhe", "bugu1986@126.com")?;
     let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
@@ -64,12 +60,16 @@ fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
 
     let result = String::from_utf8_lossy(&output.stdout).to_string();
     println!("{}", result);
+    let mut gpt = GPT::new();
+    gpt.setup();
+    let reps = gpt.request(result).await.unwrap();
+    println!("reps:{}", reps);
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
     let _commit = repo.commit(Some("HEAD"), //  point HEAD to our new commit
                 &signature, // author
                 &signature, // committer
-                "git-u:update", // commit message
+                &reps, // commit message
                 &tree, // tree
                 &[&parent_commit]); // parents
 

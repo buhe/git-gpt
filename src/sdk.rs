@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.openai.com/v1/chat/completions";
 
-const promptTemplate: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
+const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
 
 pub struct GPT {
     api_key: String
@@ -25,11 +25,12 @@ impl GPT {
         }
     }
 
-    pub async fn request(&self) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
-        self.request_to_gpt(self.api_key.clone()).await
+    pub async fn request(&self, diff: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+        let msg = format!("{} {}",PROMPT_TEMPLATE, diff);
+        self.request_to_gpt(self.api_key.clone(), msg).await
     }
 
-    pub async fn request_to_gpt(&self, api_key: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    pub async fn request_to_gpt(&self, api_key: String, msg: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
     // const prompt = `${promptTemplate}\n${diff}`;
 
 //     const excludeFromDiff = [
@@ -68,7 +69,7 @@ impl GPT {
                     },
                     Msg {
                         role: "user".to_string(),
-                        content: "hey".to_string(),
+                        content: msg,
                     },
                 ]);
     let gpt_body = GptBody {
