@@ -1,5 +1,7 @@
-use git2::{Repository, Index, ObjectType, Signature};
+mod sdk;
 
+use git2::{Repository, Index, ObjectType, Signature};
+use sdk::GPT;
 fn main() {
     println!("Hello, git!");
     match run() {
@@ -10,6 +12,8 @@ fn main() {
 }
 
 fn run() -> Result<(), git2::Error> {
+    let gpt = GPT{};
+    gpt.setup();
     let repo = open()?;
     let mut index = add_all(&repo)?;
     commit(&repo, &mut index)?;

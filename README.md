@@ -4,3 +4,4 @@
 - [x] commit
 - [x] pull
 - [ ] push
+- [ ] gpt log
