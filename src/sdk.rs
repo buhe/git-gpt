@@ -3,6 +3,8 @@ use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.openai.com/v1/chat/completions";
 
+const promptTemplate: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
+
 pub struct GPT {
     api_key: String
 
@@ -24,21 +26,41 @@ impl GPT {
     }
 
     pub async fn request(&self) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
-        request_to_gpt(self.api_key.clone()).await
+        self.request_to_gpt(self.api_key.clone()).await
     }
-}
 
-#[derive(Serialize, Deserialize, Debug)]
-struct GptBody {
-    model: String,
-    messages: VecDeque<Msg>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    temperature: Option<f32>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    max_tokens: Option<u32>,
-}
+    pub async fn request_to_gpt(&self, api_key: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    // const prompt = `${promptTemplate}\n${diff}`;
 
-pub async fn request_to_gpt(api_key: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+//     const excludeFromDiff = [
+// 	'package-lock.json',
+// 	'pnpm-lock.yaml',
+
+// 	// yarn.lock, Cargo.lock, Gemfile.lock, Pipfile.lock, etc.
+// 	'*.lock',
+// ].map(file => `:(exclude)${file}`);
+
+// export const getStagedDiff = async () => {
+// 	const diffCached = ['diff', '--cached'];
+// 	const { stdout: files } = await execa(
+// 		'git',
+// 		[...diffCached, '--name-only', ...excludeFromDiff],
+// 	);
+
+// 	if (!files) {
+// 		return;
+// 	}
+
+// 	const { stdout: diff } = await execa(
+// 		'git',
+// 		[...diffCached, ...excludeFromDiff],
+// 	);
+
+// 	return {
+// 		files: files.split('\n'),
+// 		diff,
+// 	};
+// };
     let msgs = VecDeque::from(vec![
                     Msg {
                         role: "system".to_string(),
@@ -71,6 +93,19 @@ pub async fn request_to_gpt(api_key: String) -> Result<String, Box<dyn std::erro
     println!("raw:{}", resp);
     Ok(resp["choices"][0]["message"]["content"].to_string())
 }
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct GptBody {
+    model: String,
+    messages: VecDeque<Msg>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    temperature: Option<f32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    max_tokens: Option<u32>,
+}
+
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Msg {
