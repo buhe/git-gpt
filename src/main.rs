@@ -6,7 +6,7 @@ use std::process::Command;
 
 #[tokio::main]
 async fn main() {
-    println!("Hello, git gpt!");
+    // println!("Hello, git gpt!");
     match run().await {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
@@ -59,11 +59,11 @@ async fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error>
         .expect("failed to execute process");
 
     let result = String::from_utf8_lossy(&output.stdout).to_string();
-    println!("{}", result);
+    // println!("{}", result);
     let mut gpt = GPT::new();
     gpt.setup();
     let reps = gpt.request(result).await.unwrap();
-    println!("reps:{}", reps);
+    println!("GPT 3.5 API generate git commit log:{}", reps);
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
     let _commit = repo.commit(Some("HEAD"), //  point HEAD to our new commit
