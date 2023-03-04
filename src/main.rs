@@ -6,7 +6,7 @@ use std::process::Command;
 
 #[tokio::main]
 async fn main() {
-    println!("Hello, git gpt!!!");
+    println!("Hello, git gpt!");
     match run().await {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
