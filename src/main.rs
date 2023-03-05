@@ -61,11 +61,18 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
         // println!("{}", result);
         let mut gpt = GPT::new();
         if gpt.setup() {
-            let reps = gpt.request(result).await.unwrap();
-            println!("GPT 3.5 API generate git commit log:{}", reps);
-            msg = reps;
+            let reps = gpt.request(result).await;
+            if reps.is_err() {
+                println!("GPT 3.5 API network loss.");
+                return Ok(());
+            }
+            msg = reps.unwrap();
+            println!("GPT 3.5 API generate git commit log:{}", &msg);
+            
+        } else {
+            return Ok(());
         }
-        
+
     }
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
