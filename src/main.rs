@@ -6,26 +6,29 @@ use std::process::Command;
 
 #[tokio::main]
 async fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    let mut skip = false;
+    if args.len() == 2 {
+        let arg = &args[1];
+        if arg == "--skip" || arg == "-s" {
+            skip = true;
+        }
+    }
+    
     println!("Hello, git gpt!");
-    match run().await {
+    match run(skip).await {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
     }
     
 }
 
-async fn run() -> Result<(), git2::Error> {
+async fn run(skip: bool) -> Result<(), git2::Error> {
     let repo = open()?;
     let mut index = add_all(&repo)?;
-    commit(&repo, &mut index).await?;
+    commit(&repo, &mut index, skip).await?;
     // pull(&repo)?;
     // push(&repo)?;
-    // let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
-    // let commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
-    // println!("commit {}\nAuthor: {}\n    {}",
-    //          commit.id(),
-    //          commit.author(),
-    //          commit.message().unwrap_or("no commit message"));
     Ok(())
 }
 
@@ -41,32 +44,34 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
     Ok(index)
 }
 
-async fn commit(repo: &Repository, index: &mut Index) -> Result<(), git2::Error> {
-     let oid = index.write_tree()?;
+async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), git2::Error> {
+    let oid = index.write_tree()?;
     let signature = repo.signature()?;
     let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
     let parent_commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
-    // let head = repo.find_tree(parent_commit.id())?;
-    // let diff = repo.diff_tree_to_index(Some(&head), Some(index), None)?;
-    // diff.foreach(file_cb, binary_cb, hunk_cb, line_cb);
-    let output = Command::new("git")
+    let mut msg: String = "git-gpt:update".to_string();
+    if !skip {
+        let output = Command::new("git")
         .arg("diff")
         .arg("--cached")
         .output()
         .expect("failed to execute process");
 
-    let result = String::from_utf8_lossy(&output.stdout).to_string();
-    // println!("{}", result);
-    let mut gpt = GPT::new();
-    gpt.setup();
-    let reps = gpt.request(result).await.unwrap();
-    println!("GPT 3.5 API generate git commit log:{}", reps);
+        let result = String::from_utf8_lossy(&output.stdout).to_string();
+        // println!("{}", result);
+        let mut gpt = GPT::new();
+        gpt.setup();
+        let reps = gpt.request(result).await.unwrap();
+        println!("GPT 3.5 API generate git commit log:{}", reps);
+        msg = reps;
+    }
+    
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
     let _commit = repo.commit(Some("HEAD"), //  point HEAD to our new commit
                 &signature, // author
                 &signature, // committer
-                &reps, // commit message
+                &msg, // commit message
                 &tree, // tree
                 &[&parent_commit]); // parents
 
