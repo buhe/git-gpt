@@ -65,6 +65,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
             println!("GPT 3.5 API generate git commit log:{}", reps);
             msg = reps;
         }
+        
     }
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
