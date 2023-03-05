@@ -60,12 +60,12 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
         let result = String::from_utf8_lossy(&output.stdout).to_string();
         // println!("{}", result);
         let mut gpt = GPT::new();
-        gpt.setup();
-        let reps = gpt.request(result).await.unwrap();
-        println!("GPT 3.5 API generate git commit log:{}", reps);
-        msg = reps;
+        if gpt.setup() {
+            let reps = gpt.request(result).await.unwrap();
+            println!("GPT 3.5 API generate git commit log:{}", reps);
+            msg = reps;
+        }
     }
-    
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
     let _commit = repo.commit(Some("HEAD"), //  point HEAD to our new commit

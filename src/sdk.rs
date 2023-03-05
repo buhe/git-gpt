@@ -15,13 +15,18 @@ impl GPT {
         let gpt = GPT{api_key: "".to_string()};
         gpt
     }
-    pub fn setup(&mut self){
+    pub fn setup(&mut self) -> bool {
          match env::var("OPEN_AI") {
             Ok(val) => {
                 // println!("OPEN_AI is {}", val);
                 self.api_key = val;
+                return true;
+
             },
-            Err(e) => println!("couldn't read OPEN_AI: {}", e),
+            Err(e) => { 
+                println!("couldn't read OPEN_AI: {}", e);
+                return false;
+            },
         }
     }
 
