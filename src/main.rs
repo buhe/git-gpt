@@ -63,7 +63,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
         if gpt.setup() {
             let reps = gpt.request(result).await;
             if reps.is_err() {
-                println!("GPT 3.5 API network loss.");
+                println!("GPT 3.5 API {}.", reps.err().unwrap());
                 return Ok(());
             }
             msg = reps.unwrap();
@@ -82,7 +82,6 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
                 &msg, // commit message
                 &tree, // tree
                 &[&parent_commit]); // parents
-
     Ok(())
 }
 
