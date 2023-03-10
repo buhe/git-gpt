@@ -10,10 +10,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Mar  6 15:57:11 2023
+# Make data base, printed on Tue Mar  7 17:37:50 2023
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -43,25 +44,25 @@ MAKEFILE_LIST :=  Makefile
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-INFOPATH = /opt/homebrew/share/info:/opt/homebrew/share/info:
+INFOPATH = /opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /opt/homebrew/Caskroom/miniconda/base/bin:/Users/guyanhua/.nvm/versions/node/v19.2.0/bin:/Users/guyanhua/.espressif/tools/xtensa-esp32-elf-clang/esp-13.0.0-20211203-aarch64-apple-darwin/bin/:/Library/Frameworks/Python.framework/Versions/3.10/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/opt/homebrew/Caskroom/miniconda/base/bin:/opt/homebrew/Caskroom/miniconda/base/condabin:/Users/guyanhua/.nvm/versions/node/v19.2.0/bin:/Users/guyanhua/.espressif/tools/xtensa-esp32-elf-clang/esp-13.0.0-20211203-aarch64-apple-darwin/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/guyanhua/.cargo/bin
+PATH = /opt/homebrew/Caskroom/miniconda/base/bin:/Users/guyanhua/.nvm/versions/node/v19.2.0/bin:/Users/guyanhua/.espressif/tools/xtensa-esp32-elf-clang/esp-13.0.0-20211203-aarch64-apple-darwin/bin/:/Library/Frameworks/Python.framework/Versions/3.10/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/aria2/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/Users/guyanhua/.cargo/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 NVM_BIN = /Users/guyanhua/.nvm/versions/node/v19.2.0/bin
 # environment
+OPEN_AI = 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
+# environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.d3L71Ne8An/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.MGe7cegXIi/Listeners
 # automatic
 %F = $(notdir $%)
-# environment
-CONDA_EXE = /opt/homebrew/Caskroom/miniconda/base/bin/conda
 # environment
 PWD = /Users/guyanhua/code/github/git-u
 # environment
@@ -69,7 +70,7 @@ HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-MANPATH = /Users/guyanhua/.nvm/versions/node/v19.2.0/share/man:/opt/homebrew/share/man:/usr/share/man:/usr/local/share/man:/usr/local/aria2/share/doc/man:/Applications/Wireshark.app/Contents/Resources/share/man:/Users/guyanhua/.nvm/versions/node/v19.2.0/share/man:/opt/homebrew/share/man::
+MANPATH = /Users/guyanhua/.nvm/versions/node/v19.2.0/share/man:/opt/homebrew/share/man::
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -83,8 +84,6 @@ LOGNAME = guyanhua
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
-CONDA_PROMPT_MODIFIER = (base) 
-# environment
 NVM_CD_FLAGS = -q
 # environment
 ZSH = /Users/guyanhua/.oh-my-zsh
@@ -93,8 +92,6 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-CONDA_DEFAULT_ENV = base
-# environment
 XPC_FLAGS = 0x0
 # default
 MAKE = $(MAKE_COMMAND)
@@ -102,8 +99,6 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# environment
-LOCAL_GIT_DIRECTORY = /Applications/GitHub Desktop.app/Contents/Resources/app/git
 # default
 MAKE_VERSION := 3.81
 # environment
@@ -116,12 +111,11 @@ LESS = -R
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 PIP_USER = no
-# environment
-CONDA_SHLVL = 1
 # default
 MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
+ 
 # environment
 TMPDIR = /var/folders/qc/ln7ty1pd0bl0cz02r1rsc8qw0000gn/T/
 # automatic
@@ -144,6 +138,8 @@ XPC_SERVICE_NAME = application.com.microsoft.VSCode.41542975.41542981
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
+# environment
+VSCODE_L10N_BUNDLE_LOCATION = 
 # automatic
 +F = $(notdir $+)
 # environment
@@ -160,8 +156,6 @@ MAKEFILES :=
 PAGER = less
 # environment
 LC_ALL = C
-# environment
-CONDA_PYTHON_EXE = /opt/homebrew/Caskroom/miniconda/base/bin/python
 # automatic
 ^F = $(notdir $^)
 # default
@@ -169,13 +163,11 @@ SUFFIXES :=
 # environment
 MAKELEVEL := 0
 # environment
-CONDA_PREFIX = /opt/homebrew/Caskroom/miniconda/base
-# environment
-VSCODE_PID = 45975
-# environment
 LANG = C
+# environment
+VSCODE_PID = 1082
 # variable set hash-table stats:
-# Load=80/1024=8%, Rehash=0, Collisions=2/103=2%
+# Load=75/1024=7%, Rehash=0, Collisions=1/98=1%
 
 # Pattern-specific Variable Values
 
@@ -183,7 +175,7 @@ LANG = C
 
 # Directories
 
-# . (device 16777234, inode 15456408): 11 files, no impossibilities.
+# . (device 16777231, inode 15456408): 11 files, no impossibilities.
 
 # 11 files, no impossibilities in 1 directories.
 
@@ -244,6 +236,6 @@ Makefile:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Mar  6 15:57:11 2023
+# Finished Make data base on Tue Mar  7 17:37:50 2023
 
  

@@ -6,13 +6,13 @@ const URL: &str = "https://api.openai.com/v1/chat/completions";
 const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
 
 pub struct GPT {
-    api_key: String
-
+    api_key: String,
+    proxy: Option<String>
 }
 
 impl GPT {
     pub fn new() -> Self {
-        let gpt = GPT{api_key: "".to_string()};
+        let gpt = GPT{api_key: "".to_string(), proxy: None};
         gpt
     }
     pub fn setup(&mut self) -> bool {
@@ -20,6 +20,15 @@ impl GPT {
             Ok(val) => {
                 // println!("OPEN_AI is {}", val);
                 self.api_key = val;
+
+                 match env::var("PROXY_URL") {
+                    Ok(url) => {
+                        self.proxy = Some(url)
+                    },
+                    Err(_) => { 
+                    },
+                }
+
                 return true;
 
             },
@@ -54,9 +63,9 @@ impl GPT {
         max_tokens: Some(2048),
     };
 
-
+    let url: &str = if self.proxy.is_none() { URL } else { self.proxy.as_ref().unwrap().as_str() };
     let resp: serde_json::Value = reqwest::Client::new()
-        .post(URL)
+        .post(url)
         .header("Content-Type", "application/json")
         .header("Authorization", format!("Bearer {}", api_key))
         .json(&gpt_body)
