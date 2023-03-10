@@ -14,6 +14,10 @@ export OPEAN_AI=YOUR_TOKEN
 git gpt
 git push
 ```
+or you can use proxy url, see https://github.com/buhe/openai_proxy , proxy serve on vercel at USA, proxy used by open ai block regsion.
+```bash
+export PROXY_URL=YOUR_PROXY_URL
+```
 
 ### Tasks
 
@@ -26,3 +30,4 @@ git push
 - [x] gpt log
 - [x] use git cong instead of hard code
 - [x] update document
+- [x] proxy url
