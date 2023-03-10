@@ -73,7 +73,7 @@ impl GPT {
         .await?
         .json()
         .await?;
-    println!("raw:{}", resp);
+    // println!("raw:{}", resp);
     Ok(resp["choices"][0]["message"]["content"].to_string())
 }
 }
