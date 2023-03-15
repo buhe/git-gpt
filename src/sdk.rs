@@ -5,6 +5,7 @@ const URL: &str = "https://api.openai.com/v1/chat/completions";
 
 const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
 
+
 pub struct GPT {
     api_key: String,
     proxy: Option<String>
@@ -73,7 +74,7 @@ impl GPT {
         .await?
         .json()
         .await?;
-    // println!("raw:{}", resp);
+    println!("raw:{}", resp);
     Ok(resp["choices"][0]["message"]["content"].to_string())
 }
 }
