@@ -60,7 +60,7 @@ impl GPT {
     let gpt_body = GptBody {
         model: "gpt-3.5-turbo".to_string(),
         messages: msgs, // todo log,
-        temperature: Some(0.8),
+        temperature: Some(0.0),
         max_tokens: Some(2048),
     };
 
