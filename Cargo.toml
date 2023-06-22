@@ -1,9 +1,10 @@
 [package]
 name = "git-gpt"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2021"
 description="Use GPT 3.5 API generate git commit log."
 license="Apache-2.0"
+repository="https://github.com/buhe/git-gpt"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
