@@ -70,7 +70,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
         .output()
         .expect("failed to execute process");
         let result = String::from_utf8_lossy(&output.stdout).to_string();
-        // println!("{}", result);
+        println!("git diff {}", result);
         let mut gpt = GPT::new();
         if gpt.setup() {
             let reps = gpt.request(result).await;
