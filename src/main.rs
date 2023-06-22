@@ -2,31 +2,31 @@ mod sdk;
 
 use git2::{Repository, Index, ObjectType};
 use sdk::GPT;
-use std::process::Command;
+use std::{process::Command};
 
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mut skip = false;
-    if args.len() == 2 {
-        let arg = &args[1];
-        if arg == "--skip" || arg == "-s" {
-            skip = true;
-        }
+    let mut verbose = false;
+    if args.contains(&"--skip".to_string()) || args.contains(&"-s".to_string()) {
+        skip = true;
     }
-    
+    if args.contains(&"--verbose".to_string()) || args.contains(&"-v".to_string()) {
+        verbose = true;
+    }
     println!("Hello, git gpt!");
-    match run(skip).await {
+    match run(skip, verbose).await {
         Ok(()) => {}
         Err(e) => println!("error: {}", e),
     }
     
 }
 
-async fn run(skip: bool) -> Result<(), git2::Error> {
+async fn run(skip: bool, verbose: bool) -> Result<(), git2::Error> {
     let repo = open()?;
     let mut index = add_all(&repo)?;
-    commit(&repo, &mut index, skip).await?;
+    commit(&repo, &mut index, skip, verbose).await?;
     // pull(&repo)?;
     // push(&repo)?;
     Ok(())
@@ -56,7 +56,7 @@ fn skip_diff(mut command: Command) -> Command {
     command
 }
 
-async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), git2::Error> {
+async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool) -> Result<(), git2::Error> {
     let oid = index.write_tree()?;
     let signature = repo.signature()?;
     let obj = repo.head()?.resolve()?.peel(ObjectType::Commit)?;
@@ -70,10 +70,12 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
         .output()
         .expect("failed to execute process");
         let result = String::from_utf8_lossy(&output.stdout).to_string();
-        println!("git diff {}", result);
+        if verbose {
+            println!("git diff {}", result);
+        }
         let mut gpt = GPT::new();
         if gpt.setup() {
-            let reps = gpt.request(result).await;
+            let reps = gpt.request(result, verbose).await;
             if reps.is_err() {
                 println!("GPT 3.5 API {}.", reps.err().unwrap());
                 return Ok(());

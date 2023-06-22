@@ -40,12 +40,12 @@ impl GPT {
         }
     }
 
-    pub async fn request(&self, diff: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    pub async fn request(&self, diff: String, verbose: bool) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
         let msg = format!("{} {}",PROMPT_TEMPLATE, diff);
-        self.request_to_gpt(self.api_key.clone(), msg).await
+        self.request_to_gpt(self.api_key.clone(), msg, verbose).await
     }
 
-    pub async fn request_to_gpt(&self, api_key: String, msg: String) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    pub async fn request_to_gpt(&self, api_key: String, msg: String, verbose: bool) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
         
     let msgs = VecDeque::from(vec![
                     Msg {
@@ -74,7 +74,9 @@ impl GPT {
         .await?
         .json()
         .await?;
-    println!("raw:{}", resp);
+    if verbose {
+        println!("gpt raw:{}", resp);
+    }
     Ok(resp["choices"][0]["message"]["content"].to_string())
 }
 }
