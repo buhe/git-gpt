@@ -44,6 +44,18 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
     Ok(index)
 }
 
+fn skip_diff(mut command: Command) -> Command {
+    command
+    .arg("diff")
+        .arg("--cached")
+        .arg("--")
+        .arg(".");
+    for arg in vec!["':!.vscode'"].into_iter() {
+        command.arg(arg);
+    }
+    command
+}
+
 async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), git2::Error> {
     let oid = index.write_tree()?;
     let signature = repo.signature()?;
@@ -51,12 +63,12 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool) -> Result<(), 
     let parent_commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
     let mut msg: String = "git-gpt:update".to_string();
     if !skip {
-        let output = Command::new("git")
-        .arg("diff")
-        .arg("--cached")
+        let mut diff = Command::new("git");
+        
+        diff = skip_diff(diff);
+        let output = diff
         .output()
         .expect("failed to execute process");
-
         let result = String::from_utf8_lossy(&output.stdout).to_string();
         // println!("{}", result);
         let mut gpt = GPT::new();

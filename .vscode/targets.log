@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Jun 21 18:38:30 2023
+# Make data base, printed on Thu Jun 22 11:37:12 2023
 
 # Variables
 
@@ -53,8 +53,6 @@ LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 NVM_BIN = /Users/guyanhua/.nvm/versions/node/v19.7.0/bin
 # environment
-LaunchInstanceID = CB12ADF5-2431-4F07-8841-2ADF3C796577
-# environment
 OPEN_AI = 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
 # environment
 ELECTRON_RUN_AS_NODE = 1
@@ -63,7 +61,7 @@ PYENV_ROOT = /Users/guyanhua/.pyenv
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.uJUlaNto0P/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.vMxy8xqmpM/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -87,7 +85,7 @@ HOME = /Users/guyanhua
 # default
 MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/guyanhua/Library/Application Support/Code/CachedData/4cb974a7aed77a74c7813bdccd99ee0d04901215
+VSCODE_CODE_CACHE_PATH = /Users/guyanhua/Library/Application Support/Code/CachedData/695af097c7bd098fbf017ce3ac85e09bbc5dda06
 # environment
 LOGNAME = guyanhua
 # environment
@@ -141,7 +139,7 @@ MFLAGS = -Rrqp
 # environment
 NVM_DIR = /Users/guyanhua/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.60255919.60255925
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.64416174.64416180
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -162,8 +160,6 @@ MAKEFILES :=
 PAGER = less
 # environment
 LC_ALL = C
-# environment
-SECURITYSESSIONID = 186ac
 # automatic
 ^F = $(notdir $^)
 # default
@@ -173,9 +169,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 64637
+VSCODE_PID = 3368
 # variable set hash-table stats:
-# Load=80/1024=8%, Rehash=0, Collisions=1/103=1%
+# Load=78/1024=8%, Rehash=0, Collisions=1/101=1%
 
 # Pattern-specific Variable Values
 
@@ -183,7 +179,7 @@ VSCODE_PID = 64637
 
 # Directories
 
-# . (device 16777233, inode 15456408): 11 files, no impossibilities.
+# . (device 16777231, inode 15456408): 11 files, no impossibilities.
 
 # 11 files, no impossibilities in 1 directories.
 
@@ -228,6 +224,7 @@ Makefile:
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
+ 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -244,6 +241,6 @@ Makefile:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Wed Jun 21 18:38:30 2023
+# Finished Make data base on Thu Jun 22 11:37:12 2023
 
  
