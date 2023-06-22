@@ -31,3 +31,4 @@ export PROXY_URL=YOUR_PROXY_URL
 - [x] use git cong instead of hard code
 - [x] update document
 - [x] proxy url
+- [x] skip .vscode and *.lock
