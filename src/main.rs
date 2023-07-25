@@ -75,19 +75,23 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
             println!("git diff {}", result);
         }
         let mut gpt = GPT::new();
-        if gpt.setup() {
-            let reps = gpt.request(result, verbose).await;
-            if reps.is_err() {
-                println!("GPT 3.5 API {}.", reps.err().unwrap());
+        if result.is_empty() {
+            msg = "All files are skip.".to_string()
+        } else {
+            if gpt.setup() {
+                let reps = gpt.request(result, verbose).await;
+                if reps.is_err() {
+                    println!("GPT 3.5 API {}.", reps.err().unwrap());
+                    return Ok(());
+                }
+                msg = reps.unwrap();
+                println!("GPT 3.5 API generate git commit log:{}", &msg);
+                
+            } else {
                 return Ok(());
             }
-            msg = reps.unwrap();
-            println!("GPT 3.5 API generate git commit log:{}", &msg);
-            
-        } else {
-            return Ok(());
-        }
 
+        }
     }
     let tree = repo.find_tree(oid)?;
     // tree.as_object().as_commit().unwrap().message().unwrap();
