@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Jun 22 11:37:12 2023
+# Make data base, printed on Tue Jul 25 15:49:26 2023
 
 # Variables
 
@@ -26,6 +26,8 @@ LIBCLANG_PATH = /Users/guyanhua/.espressif/tools/xtensa-esp32-elf-clang/esp-13.0
 NVM_INC = /Users/guyanhua/.nvm/versions/node/v19.7.0/include/node
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# environment
+rvm_path = /Users/guyanhua/.rvm
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # automatic
@@ -47,13 +49,16 @@ INFOPATH = /opt/homebrew/share/info:
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /Users/guyanhua/.pyenv/shims:/Users/guyanhua/opt/anaconda3/bin:/Users/guyanhua/.nvm/versions/node/v19.7.0/bin:/Users/guyanhua/.espressif/tools/xtensa-esp32-elf-clang/esp-13.0.0-20211203-aarch64-apple-darwin/bin/:/Library/Frameworks/Python.framework/Versions/3.10/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/aria2/bin:/usr/local/go/bin:/Users/guyanhua/.cargo/bin
+PATH = /Users/guyanhua/.pyenv/shims:/Users/guyanhua/opt/anaconda3/bin:/Users/guyanhua/.nvm/versions/node/v19.7.0/bin:/Users/guyanhua/.espressif/tools/xtensa-esp32-elf-clang/esp-13.0.0-20211203-aarch64-apple-darwin/bin/:/Library/Frameworks/Python.framework/Versions/3.10/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/aria2/bin:/usr/local/share/dotnet:~/.dotnet/tools:/usr/local/go/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/guyanhua/.cargo/bin:/Users/guyanhua/.rvm/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 NVM_BIN = /Users/guyanhua/.nvm/versions/node/v19.7.0/bin
+ 
 # environment
-OPEN_AI = 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
+LaunchInstanceID = 8C1B3889-D911-4946-B8EB-F37C12AA6AFF
+# environment
+OPEN_AI = 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
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
@@ -61,11 +66,13 @@ PYENV_ROOT = /Users/guyanhua/.pyenv
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.vMxy8xqmpM/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.DhIpU4VPwU/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
-OPENAI_API_KEY = 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
+OPENAI_API_KEY = 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
+# environment
+rvm_bin_path = /Users/guyanhua/.rvm/bin
 # environment
 PWD = /Users/guyanhua/code/github/git-u
 # environment
@@ -75,7 +82,7 @@ HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
-MANPATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/usr/share/man:/Applications/Xcode.app/Contents/Developer/usr/share/man:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/man:/Users/guyanhua/.nvm/versions/node/v19.7.0/share/man:/opt/homebrew/share/man::
+MANPATH = /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man:/Library/Developer/CommandLineTools/Toolchains/XcodeDefault.xctoolchain/usr/share/man:/Users/guyanhua/.nvm/versions/node/v19.7.0/share/man:/opt/homebrew/share/man::
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
@@ -83,9 +90,9 @@ PYENV_SHELL = zsh
 # environment
 HOME = /Users/guyanhua
 # default
-MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
+MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/guyanhua/Library/Application Support/Code/CachedData/695af097c7bd098fbf017ce3ac85e09bbc5dda06
+VSCODE_CODE_CACHE_PATH = /Users/guyanhua/Library/Application Support/Code/CachedData/74f6148eb9ea00507ec113ec51c489d6ffb4b771
 # environment
 LOGNAME = guyanhua
 # environment
@@ -113,13 +120,15 @@ USER = guyanhua
 # makefile
 .DEFAULT_GOAL := local
 # environment
+rvm_version = 1.29.12 (latest)
+# environment
 LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 PIP_USER = no
 # default
-MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
 # default
 .VARIABLES := 
 # environment
@@ -127,7 +136,7 @@ TMPDIR = /var/folders/qc/ln7ty1pd0bl0cz02r1rsc8qw0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/guyanhua/Library/Application Support/Code/1.79-main.sock
+VSCODE_IPC_HOOK = /Users/guyanhua/Library/Application Support/Code/1.80-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -139,7 +148,7 @@ MFLAGS = -Rrqp
 # environment
 NVM_DIR = /Users/guyanhua/.nvm
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.64416174.64416180
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.69702466.69702472
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -160,8 +169,12 @@ MAKEFILES :=
 PAGER = less
 # environment
 LC_ALL = C
+# environment
+SECURITYSESSIONID = 186b4
 # automatic
 ^F = $(notdir $^)
+# environment
+rvm_prefix = /Users/guyanhua
 # default
 SUFFIXES := 
 # environment
@@ -169,9 +182,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3368
+VSCODE_PID = 751
 # variable set hash-table stats:
-# Load=78/1024=8%, Rehash=0, Collisions=1/101=1%
+# Load=84/1024=8%, Rehash=0, Collisions=1/107=1%
 
 # Pattern-specific Variable Values
 
@@ -179,9 +192,9 @@ VSCODE_PID = 3368
 
 # Directories
 
-# . (device 16777231, inode 15456408): 11 files, no impossibilities.
+# . (device 16777232, inode 15456408): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -224,7 +237,6 @@ Makefile:
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -241,6 +253,6 @@ Makefile:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jun 22 11:37:12 2023
+# Finished Make data base on Tue Jul 25 15:49:26 2023
 
  
