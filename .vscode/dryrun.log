@@ -3,4 +3,3 @@ make: Entering directory `/Users/guyanhua/code/github/git-u'
 cargo install --path .
 make: Leaving directory `/Users/guyanhua/code/github/git-u'
  
-  
