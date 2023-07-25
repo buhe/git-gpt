@@ -75,7 +75,8 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
         }
         let mut gpt = GPT::new();
         if result.is_empty() {
-            msg = "All files are skip.".to_string()
+            msg = "All files are skip.".to_string();
+            println!("GPT 3.5 API generate git commit log:{}", &msg);
         } else {
             if gpt.setup() {
                 let reps = gpt.request(result, verbose).await;
