@@ -3,7 +3,7 @@ mod sdk;
 use git2::{Repository, Index, ObjectType};
 use sdk::GPT;
 use std::{process::Command};
-const MAX_NUM: usize = 16000;
+const MAX_NUM: usize = 14000;
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = std::env::args().collect();
