@@ -3,7 +3,7 @@ mod sdk;
 use git2::{Repository, Index, ObjectType};
 use sdk::GPT;
 use std::{process::Command};
-
+const MAX_NUM: usize = 16000;
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -69,7 +69,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
         let output = diff
         .output()
         .expect("failed to execute process");
-        let result = String::from_utf8_lossy(&output.stdout).to_string();
+        let mut result = String::from_utf8_lossy(&output.stdout).to_string();
         if verbose {
             println!("git diff {}", result);
         }
@@ -79,6 +79,9 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
             println!("GPT 3.5 API generate git commit log:{}", &msg);
         } else {
             if gpt.setup() {
+                if result.len() >  MAX_NUM {
+                    result.truncate(MAX_NUM)
+                }
                 let reps = gpt.request(result, verbose).await;
                 if reps.is_err() {
                     println!("GPT 3.5 API {}.", reps.err().unwrap());

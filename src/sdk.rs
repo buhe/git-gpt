@@ -58,10 +58,10 @@ impl GPT {
                     },
                 ]);
     let gpt_body = GptBody {
-        model: "gpt-3.5-turbo".to_string(),
-        messages: msgs, // todo log,
+        model: "gpt-3.5-turbo-16k".to_string(),
+        messages: msgs,
         temperature: Some(0.0),     
-        max_tokens: Some(2048),
+        max_tokens: Some(15000),
     };
 
     let url: &str = if self.proxy.is_none() { URL } else { self.proxy.as_ref().unwrap().as_str() };
