@@ -3,7 +3,7 @@ mod sdk;
 use git2::{Repository, Index, ObjectType};
 use sdk::GPT;
 use std::{process::Command};
-const MAX_NUM: usize = 14000;
+const MAX_NUM: usize = 10000;
 #[tokio::main]
 async fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -50,7 +50,7 @@ fn skip_diff(mut command: Command) -> Command {
         .arg("--cached")
         .arg("--")
         .arg(".");
-    for arg in vec!["':!.vscode'", "':!*.lock'", ":!LICENSE", ":!*.xcbkptlist", ":!*.xcuserstate"].into_iter() {
+    for arg in vec!["':!.vscode'", "':!*.lock'", ":!LICENSE", ":!*.xcbkptlist", ":!*.xcuserstate", ":!package-lock.json"].into_iter() {
         command.arg(arg);
     }
     command
