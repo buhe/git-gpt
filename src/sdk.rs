@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 const URL: &str = "https://api.openai.com/v1/chat/completions";
 
 const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
+const PROMPT_TEMPLATE2: &str = "The generated message must not exceed 200 words";
 
 
 pub struct GPT {
@@ -41,7 +42,7 @@ impl GPT {
     }
 
     pub async fn request(&self, diff: String, verbose: bool) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
-        let msg = format!("{} {}",PROMPT_TEMPLATE, diff);
+        let msg = format!("{} {} {}",PROMPT_TEMPLATE, diff, PROMPT_TEMPLATE2);
         self.request_to_gpt(self.api_key.clone(), msg, verbose).await
     }
 
