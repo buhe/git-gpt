@@ -46,7 +46,7 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
 
 fn skip_diff(mut command: Command) -> Command {
     command
-    .arg("diff ':!*.lock'");
+    .arg("diff");
         // .arg("--cached")
         // .arg("--")
         // .arg(".");
