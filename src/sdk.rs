@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 const URL: &str = "https://api.openai.com/v1/chat/completions";
 
 const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
-const PROMPT_TEMPLATE2: &str = "The generated message must not exceed 200 words";
+const PROMPT_TEMPLATE2: &str = "The generated message must not exceed 200 words, Word count is important ";
 
 
 pub struct GPT {
