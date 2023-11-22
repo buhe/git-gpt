@@ -50,7 +50,7 @@ fn skip_diff(mut command: Command) -> Command {
         .arg("--cached")
         .arg("--")
         .arg(".");
-    for arg in vec!["':!.vscode'", "':(exclude)*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
+    for arg in vec!["':!.vscode' ':(exclude)*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
         command.arg(arg);
     }
     command
