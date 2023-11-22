@@ -44,17 +44,17 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
     Ok(index)
 }
 
-fn skip_diff(mut command: Command) -> Command {
-    command
-    .arg("diff")
-        .arg("--cached");
-        // .arg("--")
-        // .arg(".");
-    // for arg in vec!["':!.vscode' ':!*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
-    //     command.arg(arg);
-    // }
-    command
-}
+// fn skip_diff(mut command: Command) -> Command {
+//     command
+//     .arg("diff")
+//         .arg("--cached");
+//         // .arg("--")
+//         // .arg(".");
+//     // for arg in vec!["':!.vscode' ':!*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
+//     //     command.arg(arg);
+//     // }
+//     command
+// }
 
 async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool) -> Result<(), git2::Error> {
     let oid = index.write_tree()?;
@@ -67,17 +67,6 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
          .args(&["diff", "--cached", ":!*.lock"])
          .output()
          .expect("Failed to execute git command");
-
-    // 检查进程的输出
-    if !output.status.success() {
-        eprintln!(
-            "Error running git diff: {}",
-            String::from_utf8_lossy(&output.stderr)
-        );
-    } else {
-        // 打印 git diff 的输出
-        println!("git diff output:\n{}", String::from_utf8_lossy(&output.stdout));
-    }
         let mut result = String::from_utf8_lossy(&output.stdout).to_string();
         if verbose {
             println!("git diff {}", result);
