@@ -46,8 +46,8 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
 
 fn skip_diff(mut command: Command) -> Command {
     command
-    .arg("diff");
-        // .arg("--cached")
+    .arg("diff")
+        .arg("--cached");
         // .arg("--")
         // .arg(".");
     // for arg in vec!["':!.vscode' ':!*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
@@ -63,13 +63,21 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
     let parent_commit = obj.into_commit().map_err(|_| git2::Error::from_str("Couldn't find commit"))?;
     let mut msg: String = "git-gpt:update".to_string();
     if !skip {
-        let mut diff = Command::new("git");
-        
-        diff = skip_diff(diff);
-        println!("{:?}", diff);
-        let output = diff
-        .output()
-        .expect("failed to execute process");
+     let output = Command::new("git")
+         .args(&["diff", ":!*.lock"])
+         .output()
+         .expect("Failed to execute git command");
+
+    // 检查进程的输出
+    if !output.status.success() {
+        eprintln!(
+            "Error running git diff: {}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+    } else {
+        // 打印 git diff 的输出
+        println!("git diff output:\n{}", String::from_utf8_lossy(&output.stdout));
+    }
         let mut result = String::from_utf8_lossy(&output.stdout).to_string();
         if verbose {
             println!("git diff {}", result);
