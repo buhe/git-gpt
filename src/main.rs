@@ -46,13 +46,13 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
 
 fn skip_diff(mut command: Command) -> Command {
     command
-    .arg("diff")
-        .arg("--cached")
-        .arg("--")
-        .arg(".");
-    // for arg in vec!["':!.vscode' ':(exclude)*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
-        command.arg("':!Cargo.lock'");
-    // }
+    .arg("diff");
+        // .arg("--cached")
+        // .arg("--")
+        // .arg(".");
+    for arg in vec!["':!.vscode' ':!*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
+        command.arg(arg);
+    }
     command
 }
 
