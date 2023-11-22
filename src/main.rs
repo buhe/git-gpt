@@ -64,7 +64,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
     let mut msg: String = "git-gpt:update".to_string();
     if !skip {
      let output = Command::new("git")
-         .args(&["diff", "--cached", ":!*.lock", ":!.vscode"])
+         .args(&["diff", "--cached", ":!*.lock", ":!.vscode/"])
          .output()
          .expect("Failed to execute git command");
         let mut result = String::from_utf8_lossy(&output.stdout).to_string();
