@@ -24,11 +24,7 @@ export PROXY_URL=YOUR_PROXY_URL
 - [x] repo
 - [x] add all
 - [x] commit
-- [x] request gpt
-- [x] diff
+- [x] diff file
 - [x] generate git commit log
-- [x] gpt log
-- [x] use git cong instead of hard code
-- [x] update document
 - [x] proxy url
 - [x] skip some files.
