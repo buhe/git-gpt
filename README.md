@@ -14,7 +14,7 @@ export OPEAN_AI=YOUR_TOKEN
 git gpt
 git push
 ```
-or you can use proxy url, see https://github.com/justjavac/openai-proxy, proxy serve on deno edge function at USA, proxy used by open ai block regsion.
+or you can use proxy url, take a look https://github.com/buhe/openai_aws_proxy, proxy serve on aws serverless, proxy used by open ai block regsion.
 ```bash
 export PROXY_URL=YOUR_PROXY_URL
 ```
