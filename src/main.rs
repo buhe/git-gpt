@@ -2,7 +2,7 @@ mod sdk;
 
 use git2::{Repository, Index, ObjectType};
 use sdk::GPT;
-use std::{process::Command};
+use std::process::Command;
 const MAX_NUM: usize = 4000;
 #[tokio::main]
 async fn main() {
@@ -64,7 +64,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
     let mut msg: String = "git-gpt:update".to_string();
     if !skip {
      let output = Command::new("git")
-         .args(&["diff", "--cached", ":!*.lock"])
+         .args(&["diff", "--cached", "':!.vscode/'", "':!*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'"])
          .output()
          .expect("Failed to execute git command");
         let mut result = String::from_utf8_lossy(&output.stdout).to_string();
@@ -73,8 +73,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
         }
         let mut gpt = GPT::new();
         if result.is_empty() {
-            msg = "All files are skip.".to_string();
-            println!("GPT 3.5 API generate git commit log:{}", &msg);
+            println!("All files are skip.");
         } else {
             if gpt.setup() {
                 if result.len() >  MAX_NUM {
