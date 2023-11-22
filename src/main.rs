@@ -44,18 +44,6 @@ fn add_all(repo: &Repository) -> Result<Index, git2::Error> {
     Ok(index)
 }
 
-// fn skip_diff(mut command: Command) -> Command {
-//     command
-//     .arg("diff")
-//         .arg("--cached");
-//         // .arg("--")
-//         // .arg(".");
-//     // for arg in vec!["':!.vscode' ':!*.lock'", "':!LICENSE'", "':!*.xcbkptlist'", "':!*.xcuserstate'", "':!package-lock.json'", "':!*.plist'", "':!*.xcbkptlist"].into_iter() {
-//     //     command.arg(arg);
-//     // }
-//     command
-// }
-
 async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool) -> Result<(), git2::Error> {
     let oid = index.write_tree()?;
     let signature = repo.signature()?;
@@ -64,7 +52,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
     let mut msg: String = "git-gpt:update".to_string();
     if !skip {
      let output = Command::new("git")
-         .args(&["diff", "--cached", ":!*.lock", ":!.vscode/"])
+         .args(&["diff", "--cached", ":!*.lock", ":!.vscode/", ":!LICENSE", ":!*.xcbkptlist", ":!*.xcuserstate", ":!package-lock.json", ":!*.plist"])
          .output()
          .expect("Failed to execute git command");
         let mut result = String::from_utf8_lossy(&output.stdout).to_string();
