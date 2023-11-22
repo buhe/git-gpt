@@ -66,6 +66,7 @@ async fn commit(repo: &Repository, index: &mut Index, skip: bool, verbose: bool)
         let mut diff = Command::new("git");
         
         diff = skip_diff(diff);
+        println!("{:?}", diff);
         let output = diff
         .output()
         .expect("failed to execute process");
