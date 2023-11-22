@@ -19,12 +19,10 @@ or you can use proxy url, take a look https://github.com/buhe/openai_aws_proxy, 
 export PROXY_URL=YOUR_PROXY_URL
 ```
 
-### Tasks
+### Task
 
-- [x] repo
-- [x] add all
-- [x] commit
-- [x] diff file
-- [x] generate git commit log
-- [x] proxy url
-- [x] skip some files.
+- [x] Add all files
+- [x] Commit all
+- [x] Diff files and skip some files
+- [x] Generate git commit log
+- [x] Add proxy
