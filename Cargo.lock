@@ -183,7 +183,7 @@ dependencies = [
 
 [[package]]
 name = "git-gpt"
-version = "0.5.15"
+version = "0.5.16"
 dependencies = [
  "git2",
  "reqwest",
