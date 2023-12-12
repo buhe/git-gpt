@@ -1,7 +1,7 @@
 use std::{env, collections::VecDeque};
 use serde::{Deserialize, Serialize};
 
-const URL: &str = "https://api.openai.com/v1/chat/completions";
+const URL: &str = "https://api.openai.com";
 
 const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
 const PROMPT_TEMPLATE2: &str = "The generated message must not exceed 200 words, Word count is important ";
@@ -24,7 +24,7 @@ impl GPT {
                 // println!("OPEN_AI is {}", val);
                 self.api_key = val;
 
-                 match env::var(":OPENAI_URL") {
+                 match env::var("OPENAI_URL") {
                     Ok(url) => {
                         self.proxy = Some(url)
                     },
@@ -67,19 +67,20 @@ impl GPT {
     };
 
     let url: &str = if self.proxy.is_none() { URL } else { self.proxy.as_ref().unwrap().as_str() };
-    let resp: serde_json::Value = reqwest::Client::new()
-        .post(url)
+    let resp = reqwest::Client::new()
+        .post([url , "/v1/chat/completions"].join(""))
         .header("Content-Type", "application/json")
         .header("Authorization", format!("Bearer {}", api_key))
         .json(&gpt_body)
         .send()
-        .await?
-        .json()
         .await?;
+        
     if verbose {
-        println!("gpt raw:{}", resp);
+        println!("gpt raw:{:?}", resp);
     }
-    Ok(resp["choices"][0]["message"]["content"].to_string())
+    let json: serde_json::Value = resp.json()
+        .await?;
+    Ok(json["choices"][0]["message"]["content"].to_string())
 }
 }
 
