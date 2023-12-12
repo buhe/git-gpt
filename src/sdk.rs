@@ -60,7 +60,7 @@ impl GPT {
                     },
                 ]);
     let gpt_body = GptBody {
-        model: "gpt-3.5-turbo-16k".to_string(),
+        model: "gpt-4-1106-preview".to_string(),
         messages: msgs,
         temperature: Some(0.0),     
         max_tokens: Some(15000),
