@@ -18,12 +18,12 @@ impl GPT {
         gpt
     }
     pub fn setup(&mut self) -> bool {
-         match env::var("OPEN_AI") {
+         match env::var("OPENAI_API_KEY") {
             Ok(val) => {
                 // println!("OPEN_AI is {}", val);
                 self.api_key = val;
 
-                 match env::var("PROXY_URL") {
+                 match env::var(":qOPENAI_URL") {
                     Ok(url) => {
                         self.proxy = Some(url)
                     },
@@ -35,7 +35,7 @@ impl GPT {
 
             },
             Err(e) => { 
-                println!("couldn't read OPEN_AI: {}", e);
+                println!("couldn't read OPENAI_API_KEY: {}", e);
                 return false;
             },
         }
