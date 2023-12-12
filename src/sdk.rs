@@ -10,6 +10,7 @@ const PROMPT_TEMPLATE2: &str = "The generated message must not exceed 200 words,
 pub struct GPT {
     api_key: String,
     proxy: Option<String>
+    // model: Option<String>
 }
 
 impl GPT {
@@ -23,7 +24,7 @@ impl GPT {
                 // println!("OPEN_AI is {}", val);
                 self.api_key = val;
 
-                 match env::var(":qOPENAI_URL") {
+                 match env::var(":OPENAI_URL") {
                     Ok(url) => {
                         self.proxy = Some(url)
                     },
