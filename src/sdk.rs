@@ -91,6 +91,7 @@ impl GPT {
 }
 }
 
+
 #[derive(Serialize, Deserialize, Debug)]
 struct GptBody {
     model: String,
