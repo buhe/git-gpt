@@ -2,20 +2,20 @@ use std::{env, collections::VecDeque};
 use serde::{Deserialize, Serialize};
 
 const URL: &str = "https://api.openai.com";
-
+const MODEL: &str = "gpt-3.5-turbo-16k";
 const PROMPT_TEMPLATE: &str = "Write an insightful but concise Git commit message in a complete sentence in present tense for the following diff without prefacing it with anything:";
 const PROMPT_TEMPLATE2: &str = "The generated message must not exceed 200 words, Word count is important ";
 
 
 pub struct GPT {
     api_key: String,
-    proxy: Option<String>
-    // model: Option<String>
+    proxy: Option<String>,
+    model: Option<String>,
 }
 
 impl GPT {
     pub fn new() -> Self {
-        let gpt = GPT{api_key: "".to_string(), proxy: None};
+        let gpt = GPT{api_key: "".to_string(), proxy: None, model: None};
         gpt
     }
     pub fn setup(&mut self) -> bool {
@@ -31,7 +31,13 @@ impl GPT {
                     Err(_) => { 
                     },
                 }
-
+                 match env::var("OPENAI_MODEL") {
+                    Ok(model) => {
+                        self.model = Some(model)
+                    },
+                    Err(_) => { 
+                    },
+                }
                 return true;
 
             },
@@ -59,8 +65,9 @@ impl GPT {
                         content: msg,
                     },
                 ]);
+    let model: &str = if self.model.is_none() { MODEL } else { self.model.as_ref().unwrap().as_str() };
     let gpt_body = GptBody {
-        model: "gpt-3.5-turbo-16k".to_string(),
+        model: model.to_string(),
         messages: msgs,
         temperature: Some(0.0),     
         max_tokens: Some(15000),
